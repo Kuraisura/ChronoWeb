@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 187 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 187 100% 50%;
+    --radius: 0.75rem;
+    --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Chrono theme tokens (RGB channels for alpha support) */
+    --chrono-bg: 10 10 10;
+    --chrono-surface: 20 20 20;
+    --chrono-surface-2: 24 24 24;
+    --chrono-border: 42 42 42;
+    --chrono-border-soft: 31 31 31;
+    --chrono-text: 255 255 255;
+    --chrono-muted: 160 160 160;
+    --chrono-dim: 102 102 102;
+    --chrono-accent: 0 229 255;
+    --chrono-danger: 255 107 61;
+  }
+
+  .theme-light {
+    --background: 220 16% 96%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 192 100% 36%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 74% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
+    --ring: 192 100% 36%;
+
+    --chrono-bg: 238 241 244;
+    --chrono-surface: 250 251 252;
+    --chrono-surface-2: 231 235 239;
+    --chrono-border: 198 205 212;
+    --chrono-border-soft: 218 223 228;
+    --chrono-text: 22 27 32;
+    --chrono-muted: 83 92 101;
+    --chrono-dim: 126 136 145;
+    --chrono-accent: 0 139 164;
+    --chrono-danger: 190 57 38;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-body antialiased;
+    background-color: rgb(var(--chrono-bg));
+    color: rgb(var(--chrono-text));
+    user-select: none;
+  }
+  input, textarea, [contenteditable="true"], .ql-editor { user-select: text; }
+  button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--chrono-border)); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--chrono-muted)); }
+}
+
+@layer components {
+  .motion-button { @apply transition-all duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-chrono-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-chrono-bg; }
+  .icon-button { @apply w-9 h-9 rounded-md border border-chrono-border text-chrono-muted hover:text-chrono-text hover:bg-chrono-text/5 flex items-center justify-center shrink-0; }
+  .settings-heading { @apply text-sm font-semibold text-chrono-text mb-4; }
+  .form-error { @apply text-xs text-chrono-danger mt-1; }
+}
+
+[aria-invalid="true"] { border-color: rgb(var(--chrono-danger)) !important; }
+
+.theme-system-swatch { background: linear-gradient(90deg, #101316 0 50%, #f4f6f8 50%); border-color: rgb(var(--chrono-border)); }
+.calendar-date-input { color-scheme: dark; }
+.theme-light .calendar-date-input { color-scheme: light; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Rich text editor (Quill) theming */
+.chrono-quill .ql-toolbar.ql-snow { border-color: rgb(var(--chrono-border)) !important; background: rgb(var(--chrono-surface-2)); border-radius: 8px 8px 0 0; }
+.chrono-quill .ql-container.ql-snow { border-color: rgb(var(--chrono-border)) !important; background: rgb(var(--chrono-surface)); border-radius: 0 0 8px 8px; color: rgb(var(--chrono-text)); font-family: var(--font-body); }
+.chrono-quill .ql-editor { color: rgb(var(--chrono-text)); min-height: 180px; font-size: 14px; line-height: 1.6; }
+.chrono-quill .ql-editor.ql-blank::before { color: rgb(var(--chrono-dim)); font-style: normal; }
+.chrono-quill .ql-snow .ql-picker-label { color: rgb(var(--chrono-muted)); }
+.chrono-quill .ql-snow .ql-picker-label:hover { color: rgb(var(--chrono-text)); }
+.chrono-quill .ql-snow .ql-stroke { stroke: rgb(var(--chrono-muted)) !important; }
+.chrono-quill .ql-snow .ql-fill { fill: rgb(var(--chrono-muted)) !important; }
+.chrono-quill .ql-snow .ql-picker-options { background: rgb(var(--chrono-surface)); border-color: rgb(var(--chrono-border)); color: rgb(var(--chrono-text)); }
+.chrono-quill .ql-snow .ql-tooltip { background: rgb(var(--chrono-surface)); border-color: rgb(var(--chrono-border)); color: rgb(var(--chrono-text)); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+.chrono-quill .ql-snow.ql-toolbar button:hover .ql-stroke,
+.chrono-quill .ql-snow.ql-toolbar button.ql-active .ql-stroke { stroke: rgb(var(--chrono-accent)) !important; }
+.chrono-quill .ql-snow.ql-toolbar button:hover .ql-fill,
+.chrono-quill .ql-snow.ql-toolbar button.ql-active .ql-fill { fill: rgb(var(--chrono-accent)) !important; }
+
+/* Rendered rich content */
+.chrono-content { color: rgb(var(--chrono-muted)); line-height: 1.6; font-size: 14px; }
+.chrono-content img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+.chrono-content p { margin: 0.5em 0; }
+.chrono-content h1, .chrono-content h2, .chrono-content h3 { color: rgb(var(--chrono-text)); font-weight: 600; margin: 0.6em 0 0.3em; }
+.chrono-content ul, .chrono-content ol { padding-left: 1.5em; margin: 0.5em 0; }
+.chrono-content blockquote { border-left: 3px solid rgb(var(--chrono-accent)); padding-left: 1em; margin: 0.5em 0; color: rgb(var(--chrono-muted)); }
+.chrono-content a { color: rgb(var(--chrono-accent)); text-decoration: underline; }
+.chrono-content pre { background: rgb(var(--chrono-bg)); padding: 0.75em; border-radius: 6px; overflow-x: auto; color: rgb(var(--chrono-text)); }
+.chrono-content code { font-family: var(--font-mono); }
